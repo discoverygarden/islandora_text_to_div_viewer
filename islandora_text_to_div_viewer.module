@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * @author: William Panting
+ * This is the global code for islandora_text_to_div_viewer
+ */
+
+/**
+ * This function is the hook into the 'islandora viewer sphere' it reports that
+ * this module can handle the text mime type and the theme function to call
+ * to use it.
+ *
+ * @param string $mime_type
+ *   The mime_type that is being queried for
+ *
+ * @return mixed
+ *   array: 'text/plain'=>'islandora_text_to_div'
+ *   string : 'islandora_text_to_div'
+ */
+function islandora_text_to_div_viewer_islandora_viewers($mime_type = NULL) {
+  if ($mime_type == NULL) {
+    return array('text/plain' => 'islandora_text_to_div');
+  }
+  elseif ($mime_type == 'text/plain') {
+    return 'islandora_text_to_div';
+  }
+}
+
+/**
+ * This function makes available the islandora_text_to_div theme.
+ * The theme will display an HTML div containing only text.
+ *
+ * @return array
+ *   the themes available from this module
+ */
+function islandora_text_to_div_viewer_theme() {
+  return array(
+    'islandora_text_to_div' => array(
+      'arguments' => array(
+        'pid' => NULL,
+        'dsid' => 'SWF',
+      ),
+      'template' => 'islandora_text_to_div',
+    ),
+  );
+}
+
+/**
+ * This is a preprocessor function that
+ * will prepare to display text data as a div
+ *
+ * @param array $vars
+ *   The variables to prepare for themeing
+ */
+function islandora_text_to_div_viewer_preprocess_islandora_text_to_div(&$vars) {
+  $fedora_pid = $vars['pid'];
+  $dsid = $vars['dsid'];
+  module_load_include('object.inc', 'islandora_fedora_api');
+
+  $Fedora_object = new FedoraObject($fedora_pid);
+  $Fedora_object_datastreams = $Fedora_object->get_datastreams();
+  // Get the text from the datastream.
+  $text_datastream = $Fedora_object_datastreams[$dsid];
+  $vars['text_data'] = $text_datastream->__get('content');
+}
