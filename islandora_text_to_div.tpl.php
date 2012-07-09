@@ -9,6 +9,8 @@
 ?>
 <div class="islandora_text_to_div_viewer">
 <?php
-  print $text_data;
+  print ('<PRE>');
+  print ($text_data);
+  print ('</PRE>');
 ?>
 </div>
