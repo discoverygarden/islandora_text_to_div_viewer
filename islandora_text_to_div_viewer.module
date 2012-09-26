@@ -53,13 +53,8 @@ function islandora_text_to_div_viewer_theme() {
  *   The variables to prepare for themeing
  */
 function islandora_text_to_div_viewer_preprocess_islandora_text_to_div(&$vars) {
-  $fedora_pid = $vars['pid'];
-  $dsid = $vars['dsid'];
-  module_load_include('object.inc', 'islandora_fedora_api');
+  module_load_include('inc', 'fedora_repository', 'api/tuque');
 
-  $Fedora_object = new FedoraObject($fedora_pid);
-  $Fedora_object_datastreams = $Fedora_object->get_datastreams();
-  // Get the text from the datastream.
-  $text_datastream = $Fedora_object_datastreams[$dsid];
-  $vars['text_data'] = $text_datastream->__get('content');
+  $Fedora_object = islandora_object_load($vars['pid']);
+  $vars['text_data'] = $Fedora_object[$vars['dsid']]->content;
 }
