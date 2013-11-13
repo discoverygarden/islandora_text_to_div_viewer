@@ -1,6 +1,6 @@
-name = Islandora text to div viewer
-description = Prints a text datastream to an HTML div.
+name = "Islandora text to div viewer"
+description = "Prints a text datastream to an HTML div."
 package = Islandora Viewers
-dependencies[] = fedora_repository
-version = 6.x-$Format:%h$-dev
-core = 6.x
+dependencies[] = islandora
+version = 7.x-dev
+core = 7.x

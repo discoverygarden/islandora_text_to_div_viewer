@@ -6,9 +6,10 @@
  */
 
 /**
- * This function is the hook into the 'islandora viewer sphere' it reports that
- * this module can handle the text mime type and the theme function to call
- * to use it.
+ * This function is the hook into the 'islandora viewer sphere'.
+ *
+ * It reports that this module can handle the text mime type and the theme
+ * function to call to use it.
  *
  * @param string $mime_type
  *   The mime_type that is being queried for
@@ -28,6 +29,7 @@ function islandora_text_to_div_viewer_islandora_viewers($mime_type = NULL) {
 
 /**
  * This function makes available the islandora_text_to_div theme.
+ *
  * The theme will display an HTML div containing only text.
  *
  * @return array
@@ -46,15 +48,12 @@ function islandora_text_to_div_viewer_theme() {
 }
 
 /**
- * This is a preprocessor function that
- * will prepare to display text data as a div
+ * Preprocessor function that will prepare to display text data as a div.
  *
  * @param array $vars
  *   The variables to prepare for themeing
  */
 function islandora_text_to_div_viewer_preprocess_islandora_text_to_div(&$vars) {
-  module_load_include('inc', 'fedora_repository', 'api/tuque');
-
-  $Fedora_object = islandora_object_load($vars['pid']);
-  $vars['text_data'] = $Fedora_object[$vars['dsid']]->content;
+  $fedora_object = islandora_object_load($vars['pid']);
+  $vars['text_data'] = $fedora_object[$vars['dsid']]->content;
 }
