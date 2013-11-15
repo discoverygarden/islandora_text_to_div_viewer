@@ -38,7 +38,7 @@ function islandora_text_to_div_viewer_islandora_viewers($mime_type = NULL) {
 function islandora_text_to_div_viewer_theme() {
   return array(
     'islandora_text_to_div' => array(
-      'arguments' => array(
+      'variables' => array(
         'pid' => NULL,
         'dsid' => 'SWF',
       ),
